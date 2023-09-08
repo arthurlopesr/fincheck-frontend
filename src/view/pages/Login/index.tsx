@@ -4,7 +4,7 @@ import { Button } from "../../components/button/Button";
 
 export function Login() {
   return (
-    <div>
+    <>
       <header className="flex flex-col items-center gap-4 ">
         <h1 className="text-2xl font-bold tracking-[-0.1px]">
           Entre em sua conta
@@ -40,6 +40,6 @@ export function Login() {
           Entrar
         </Button>
       </form>
-    </div>
+    </>
   )
 }
