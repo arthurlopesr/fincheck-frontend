@@ -32,7 +32,7 @@ export function Register() {
         onSubmit={handleSubmit}
       >
         <Input
-          placeholder="Nome"
+          placeholder="Nome Completo"
           {...register("name")}
           error={errors.name?.message}
         />
