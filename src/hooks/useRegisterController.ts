@@ -31,15 +31,11 @@ export function useRegisterController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      const { accessToken } = await mutateAsync(data);
-      console.log(accessToken);
+      await mutateAsync(data);
     } catch {
-      alert('Erro ao cadastrar');
+      toast.error('Erro ao criar conta!');
     }
   });
 
-  console.log({ isLoading });
-
-
-  return { handleSubmit, register, errors };
+  return { handleSubmit, register, errors, isLoading};
 }
