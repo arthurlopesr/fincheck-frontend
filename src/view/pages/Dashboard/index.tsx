@@ -1,18 +1,22 @@
-import { useAuth } from "../../../hooks/useAuth"
-import { Button } from "../../components/button/Button";
+import { Accounts } from "../../components/accounts/Accounts"
+import { Header } from "../../components/header/Header"
+import { Transactions } from "../../components/transactions/Transactions"
 
 export function Dashboard() {
-  const { signout } = useAuth();
 
   return (
-    <div>
-      <h1>
-        Dashboard page
-      </h1>
+    <div className="h-full w-full p-4 md:px-8 md:pb-8 md:pt-6 flex flex-col gap-4">
+      <Header />
 
-      <Button onClick={signout}>
-        Sign out
-      </Button>
+      <main className="flex-1 flex flex-col md:flex-row gap-4">
+        <div className="h-full md:w-1/2">
+          <Accounts />
+        </div>
+
+        <div className="h-full md:w-1/2">
+          <Transactions />
+        </div>
+      </main>
     </div>
   )
 }
