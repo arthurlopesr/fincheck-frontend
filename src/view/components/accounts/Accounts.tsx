@@ -31,7 +31,7 @@ export function Accounts() {
             spaceBetween={16}
             slidesPerView={2.1}
           >
-            <div className="flex items-center justify-between" slot="container-start">
+            <div className="flex items-center justify-between mb-4" slot="container-start">
               <strong className="text-white tracking-[-1px] text-lg">
                 Minhas Contas
               </strong>
@@ -39,34 +39,32 @@ export function Accounts() {
               <AccountSliderNavigation />
             </div>
 
-            <div className="mt-4">
-              <SwiperSlide>
-                <AccountCard
-                  color="#222"
-                  name="XP"
-                  balance={1000.12}
-                  type="INVESTIMENT"
-                />
-              </SwiperSlide>
+            <SwiperSlide>
+              <AccountCard
+                color="#222"
+                name="XP"
+                balance={1000.12}
+                type="INVESTIMENT"
+              />
+            </SwiperSlide>
 
-              <SwiperSlide>
-                <AccountCard
-                  color="#7950F2"
-                  name="Nubank"
-                  balance={100.12}
-                  type="CHECKING"
-                />
-              </SwiperSlide>
+            <SwiperSlide>
+              <AccountCard
+                color="#7950F2"
+                name="Nubank"
+                balance={100.12}
+                type="CHECKING"
+              />
+            </SwiperSlide>
 
-              <SwiperSlide>
-                <AccountCard
-                  color="#0f0"
-                  name="Carteira"
-                  balance={231.12}
-                  type="CASH"
-                />
-              </SwiperSlide>
-            </div>
+            <SwiperSlide>
+              <AccountCard
+                color="#0f0"
+                name="Carteira"
+                balance={231.12}
+                type="CASH"
+              />
+            </SwiperSlide>
           </Swiper>
         </div>
       </div>
