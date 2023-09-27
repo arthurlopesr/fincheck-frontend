@@ -4,6 +4,7 @@ import { AccountCard } from "../accountCard/AccountCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { AccountSliderNavigation } from "../accountSliderNavigation/AccountSliderNavigation";
 import { useAccountsController } from "../../../hooks/useAccountsController";
+import { formatCurrency } from "../../../app/utils/formartCurrency";
 
 export function Accounts() {
   const { sliderState, setSliderState, windowWidth } = useAccountsController();
@@ -17,7 +18,7 @@ export function Accounts() {
 
         <div className="flex items-center gap-2">
           <strong className="text-2xl tracking-[-1px] text-white">
-            R$ 1000,00
+            {formatCurrency(1000.12)}
           </strong>
 
           <button className="w-8 h-8 flex items-center justify-center">
