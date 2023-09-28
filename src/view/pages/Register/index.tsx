@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Input } from "../../components/input/Input";
 import { Button } from "../../components/button/Button";
-import { useRegisterController } from "../../../hooks/useRegisterController";
+import { useRegisterController } from "../../../hooks/controllers/useRegisterController";
+
+
 
 export function Register() {
   const { errors, handleSubmit, register, isLoading } = useRegisterController();
