@@ -3,11 +3,18 @@ import 'swiper/css'
 import { AccountCard } from "../accountCard/AccountCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { AccountSliderNavigation } from "../accountSliderNavigation/AccountSliderNavigation";
-import { useAccountsController } from "../../../hooks/useAccountsController";
 import { formatCurrency } from "../../../app/utils/formartCurrency";
+import { cn } from "../../../app/utils/cn";
+import { useAccountsController } from "../../../hooks/controllers/useAccountsController";
 
 export function Accounts() {
-  const { sliderState, setSliderState, windowWidth } = useAccountsController();
+  const {
+    sliderState,
+    setSliderState,
+    windowWidth,
+    areValuesVisible,
+    toggleValuesVisibility,
+  } = useAccountsController();
 
   return (
     <div className="bg-teal-900 rounded-2xl w-full h-full md:p-10 px-4 py-8 flex flex-col">
@@ -17,13 +24,22 @@ export function Accounts() {
         </span>
 
         <div className="flex items-center gap-2">
-          <strong className="text-2xl tracking-[-1px] text-white">
+          <strong
+            className={cn(
+              'text-2xl tracking-[-1px] text-white',
+              !areValuesVisible && 'blur-md'
+            )}
+
+          >
             {formatCurrency(1000.12)}
           </strong>
 
-          <button className="w-8 h-8 flex items-center justify-center">
+          <button
+            className="w-8 h-8 flex items-center justify-center"
+            onClick={toggleValuesVisibility}
+          >
             <EyeIcon
-              open={true}
+              open={!areValuesVisible}
             />
           </button>
         </div>
