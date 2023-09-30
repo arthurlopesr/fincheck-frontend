@@ -1,5 +1,6 @@
 import { Accounts } from "../../components/accounts/Accounts"
 import { DashboardProvider } from "../../components/dashboardContext/DashboardContext"
+import { Fab } from "../../components/fab/Fab"
 import { Header } from "../../components/header/Header"
 import { Transactions } from "../../components/transactions/Transactions"
 
@@ -19,6 +20,8 @@ export function Dashboard() {
             <Transactions />
           </div>
         </main>
+
+        <Fab />
       </div>
     </DashboardProvider>
   )
