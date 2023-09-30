@@ -27,7 +27,7 @@ export function Modal({ open, children, title, rightAction }: ModalProps) {
         >
           <header className="flex items-center justify-between text-gray-800">
             <button
-              className='w-12 h-12 '
+              className='w-12 h-12 flex items-center justify-center outline-none'
             >
               <Cross2Icon className='w-6 h-6'/>
             </button>
