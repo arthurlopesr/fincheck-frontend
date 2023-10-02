@@ -22,7 +22,7 @@ export function Modal({ open, children, title, rightAction, onClose }: ModalProp
         />
         <Dialog.Content
           className={cn(
-            'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[51] p-6 space-y-10 bg-white rounded-xl shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] w-full max-w-[400px] outline-none',
+            'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[51] p-6 space-y-10 bg-white rounded-xl shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] w-full max-w-[360px] md:max-w-[400px] outline-none',
             'data-[state=open]:animate-content-show',
           )}
         >
