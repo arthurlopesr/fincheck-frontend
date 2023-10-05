@@ -1,4 +1,5 @@
 import { useNewAccountModalController } from "../../../hooks/controllers/useNewAccountModalController";
+import { ColorsDropDownInput } from "../colorsDropDown/ColorsDropDown";
 import { Input } from "../input/Input";
 import { InputCurrency } from "../inputCurrency/InputCurrency";
 import { Modal } from "../modal/Modal";
@@ -38,8 +39,24 @@ export function NewAccountModal() {
           />
 
           <Select
-            error="selecione"
+            placeholder="Tipo"
+            options={[
+              {
+                value: 'INVESTMENTS',
+                label: 'Investimentos'
+              },
+              {
+                value: 'CHECKING',
+                label: 'Conta Corrente'
+              },
+              {
+                value: 'CASH',
+                label: 'Dinheiro'
+              },
+            ]}
           />
+
+          <ColorsDropDownInput />
         </div>
       </form>
     </Modal >
