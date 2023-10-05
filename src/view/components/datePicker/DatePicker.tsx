@@ -28,7 +28,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
       formatters={{
         formatCaption: (date, options) => {
           return (
-            <span>
+            <span className='text-gray-900 tracking-[-0.408px] font-medium'>
               {capitalizeFirstLetter(format(date, 'LLLL yyyy', options))}
             </span>
           );
