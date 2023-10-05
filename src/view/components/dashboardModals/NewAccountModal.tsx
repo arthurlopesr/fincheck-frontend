@@ -1,4 +1,5 @@
 import { useNewAccountModalController } from "../../../hooks/controllers/useNewAccountModalController";
+import { Button } from "../button/Button";
 import { ColorsDropDownInput } from "../colorsDropDown/ColorsDropDown";
 import { Input } from "../input/Input";
 import { InputCurrency } from "../inputCurrency/InputCurrency";
@@ -58,6 +59,10 @@ export function NewAccountModal() {
 
           <ColorsDropDownInput />
         </div>
+
+        <Button className="w-full mt-6" type="submit">
+          Salvar
+        </Button>
       </form>
     </Modal >
   );
