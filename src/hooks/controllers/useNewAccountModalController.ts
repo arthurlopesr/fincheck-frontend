@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const schema = z.object({
   initialBalance: z.string().nonempty('Saldo inicial é obrigatório'),
   name: z.string().nonempty('Nome da conta é obrigatório'),
-  type: z.enum(['CHECKING', 'INVESTMENT', 'CASH']),
+  type: z.enum(['CHECKING', 'INVESTMENTS', 'CASH']),
   color: z.string().nonempty('Cor é obrigatória'),
 });
 
