@@ -1,13 +1,7 @@
+import { BankAccount } from "../../@types/BankAccount";
 import { httpClient } from "../httpClient";
 
-type BankAccountResponse = Array<{
-  id: string;
-  name: string;
-  initialBalance: number;
-  type: 'CHECKING' | 'INVESTIMENT' | 'CASH';
-  color: string;
-  currentBalance: number;
-}>
+type BankAccountResponse = Array<BankAccount>
 
 
 export async function getAll() {
