@@ -46,7 +46,7 @@ export function NewTransactionModal() {
             placeholder="Categoria"
             options={[
               {
-                value: 'INVESTMENTS',
+                value: 'INVESTIMENT',
                 label: 'Investimentos'
               },
               {
@@ -64,7 +64,7 @@ export function NewTransactionModal() {
             placeholder={isExpense ? 'Pagar com' : 'Receber com'}
             options={[
               {
-                value: 'INVESTMENTS',
+                value: 'INVESTIMENT',
                 label: 'Investimentos'
               },
               {
