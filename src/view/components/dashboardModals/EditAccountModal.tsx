@@ -101,7 +101,7 @@ export function EditAccountModal() {
         </div>
 
         <Button className="w-full mt-6" type="submit" isLoading={isLoading}>
-          Criar
+          Salvar Alterações
         </Button>
       </form>
     </Modal >
