@@ -1,5 +1,5 @@
 import { Accounts } from "../../components/accounts/Accounts"
-import { DashboardProvider } from "../../components/dashboardContext/DashboardContext"
+import { DashboardContext, DashboardProvider } from "../../components/dashboardContext/DashboardContext"
 import { EditAccountModal } from "../../components/dashboardModals/EditAccountModal"
 import { NewAccountModal } from "../../components/dashboardModals/NewAccountModal"
 import { NewTransactionModal } from "../../components/dashboardModals/NewTransactionModal"
@@ -11,24 +11,27 @@ export function Dashboard() {
 
   return (
     <DashboardProvider>
-      <div className="h-full w-full p-4 md:px-8 md:pb-8 md:pt-6 flex flex-col gap-4">
-        <Header />
+      <DashboardContext.Consumer>
+        {({ accountBeingEdited }) => (
+          <div className="h-full w-full p-4 md:px-8 md:pb-8 md:pt-6 flex flex-col gap-4">
+            <Header />
+            <main className="flex-1 flex flex-col md:flex-row gap-4 max-h-full">
+              <div className="h-full md:w-1/2">
+                <Accounts />
+              </div>
 
-        <main className="flex-1 flex flex-col md:flex-row gap-4 max-h-full">
-          <div className="h-full md:w-1/2">
-            <Accounts />
+              <div className="h-full md:w-1/2 ">
+                <Transactions />
+              </div>
+            </main>
+
+            <Fab />
+            <NewAccountModal />
+            <NewTransactionModal />
+            {accountBeingEdited && <EditAccountModal />}
           </div>
-
-          <div className="h-full md:w-1/2 ">
-            <Transactions />
-          </div>
-        </main>
-
-        <Fab />
-        <NewAccountModal />
-        <NewTransactionModal />
-        <EditAccountModal />
-      </div>
+        )}
+      </DashboardContext.Consumer>
     </DashboardProvider>
   )
 }
