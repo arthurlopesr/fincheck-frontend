@@ -42,13 +42,21 @@ export function useEditedAccountModalController() {
     }
   });
 
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(true);
   const queryClient = useQueryClient();
-  const { isLoading, mutateAsync } = useMutation(bankAccountsService.update);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const {
+    isLoading,
+    mutateAsync: updateAccount,
+  } = useMutation(bankAccountsService.update);
+
+  const {
+    isLoading: isLoadingRemove,
+    mutateAsync: removeAccount,
+  } = useMutation(bankAccountsService.remove);
 
   const handleSubmit = hookformSubmit(async (data) => {
     try {
-      await mutateAsync({
+      await updateAccount({
         ...data,
         initialBalance: currencyStringToNumber(data.initialBalance),
         id: accountBeingEdited!.id,
@@ -70,6 +78,18 @@ export function useEditedAccountModalController() {
     setIsDeleteModalOpen(false);
   }
 
+  async function handleDeleteAccount() {
+    try {
+      await removeAccount(accountBeingEdited!.id);
+
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
+      toast.success('A conta foi deletada com sucesso!');
+      closeEditAccountModal();
+    } catch {
+      toast.error('Erro ao deletar conta!');
+    }
+  }
+
   return {
     isEditAccountModalOpen,
     closeEditAccountModal,
@@ -80,6 +100,8 @@ export function useEditedAccountModalController() {
     isLoading,
     isDeleteModalOpen,
     handleOpenDeleteModal,
-    handleCloseDeleteModal
+    handleCloseDeleteModal,
+    handleDeleteAccount,
+    isLoadingRemove,
   }
 }

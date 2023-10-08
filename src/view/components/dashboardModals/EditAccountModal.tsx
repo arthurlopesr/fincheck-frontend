@@ -21,11 +21,14 @@ export function EditAccountModal() {
     isDeleteModalOpen,
     handleOpenDeleteModal,
     handleCloseDeleteModal,
+    handleDeleteAccount,
   } = useEditedAccountModalController();
 
   if (isDeleteModalOpen) {
     return (
       <ConfirmDeleteModal
+        isLoadingRemove={isLoading}
+        onConfirm={handleDeleteAccount}
         onClose={handleCloseDeleteModal}
         title="Tem certeza que deseja excluir esta conta?"
         description="Ao excluir a conta, também serão excluídos todos os registros de receita e despesas relacionados."
