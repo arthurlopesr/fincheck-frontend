@@ -45,6 +45,8 @@ export function useNewTransactionModalController() {
     mutateAsync,
   } = useMutation(transactionsService.create);
 
+  const refrashPage = () => window.location.reload();
+
   const handleSubmit = hookformSubmit(async data => {
     try {
       await mutateAsync({
@@ -62,6 +64,7 @@ export function useNewTransactionModalController() {
       );
       closeNewTransactionModal();
       reset();
+      refrashPage();
     } catch {
       toast.error(
         newTransactionType === 'EXPENSE'
