@@ -29,11 +29,15 @@ export function useTransactionsController() {
     setIsFilterModalOpe(false);
   }
 
-  function handleChangeMonth(month: number) {
-    setFilters(prevState => ({
-      ...prevState,
-      month,
-    }))
+  function handleChangeFilters<TFilter extends keyof TransactionsFilters>(filter: TFilter) {
+    return (value: TransactionsFilters[TFilter]) => {
+      if (value === filters[filter]) return;
+
+      setFilters(prevState => ({
+        ...prevState,
+        [filter]: value,
+      }));
+    }
   }
 
   return {
@@ -45,6 +49,6 @@ export function useTransactionsController() {
     filters,
     handleOpenFilterModal,
     handleCloseFilterModal,
-    handleChangeMonth
+    handleChangeFilters
   }
 }

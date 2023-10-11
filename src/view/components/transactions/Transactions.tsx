@@ -22,7 +22,7 @@ export function Transactions() {
     isFilterModalOpen,
     handleCloseFilterModal,
     handleOpenFilterModal,
-    handleChangeMonth,
+    handleChangeFilters,
     filters,
   } = useTransactionsController();
 
@@ -58,8 +58,7 @@ export function Transactions() {
                 centeredSlides
                 initialSlide={filters.month}
                 onSlideChange={swiper => {
-                  if (swiper.realIndex === filters.month) return;
-                  handleChangeMonth(swiper.realIndex);
+                  handleChangeFilters('month')(swiper.realIndex);
                 }}
               >
                 <SliderNavigation />
