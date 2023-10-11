@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDashboard } from "../useDashboard";
 import { useTransactions } from "../useTransactions";
 import { TransactionsFilters } from "../../app/services/transactionsService/getAll";
@@ -10,7 +10,16 @@ export function useTransactionsController() {
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
   });
-  const { transactions, isLoading, isInitialLoading } = useTransactions(filters);
+  const {
+    transactions,
+    isLoading,
+    isInitialLoading,
+    refetchTransactions,
+  } = useTransactions(filters);
+
+  useEffect(() => {
+    refetchTransactions();
+  }, [filters, refetchTransactions])
 
   function handleOpenFilterModal() {
     setIsFilterModalOpe(true);
@@ -27,15 +36,13 @@ export function useTransactionsController() {
     }))
   }
 
-  console.log({ filters });
-
-
   return {
     areValuesVisible,
     isInitialLoading,
     isLoading,
     transactions,
     isFilterModalOpen,
+    filters,
     handleOpenFilterModal,
     handleCloseFilterModal,
     handleChangeMonth
