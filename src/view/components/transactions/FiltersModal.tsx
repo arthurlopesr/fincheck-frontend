@@ -6,30 +6,17 @@ import { useFiltersModalController } from "../../../hooks/controllers/useFilters
 
 interface FiltersModalProps {
   open: boolean;
-  onClose: () => void;
+  onClose(): void;
+  onApplyFilters(filters: { bankAccountId: string | undefined; year: number }): void;
 }
 
-const mokedAccounts = [
-  {
-    id: '1',
-    name: 'Nubank',
-  },
-  {
-    id: '2',
-    name: 'XP',
-  },
-  {
-    id: '3',
-    name: 'Dinheiro',
-  },
-]
-
-export function FiltersModal({ open, onClose }: FiltersModalProps) {
+export function FiltersModal({ open, onClose, onApplyFilters }: FiltersModalProps) {
   const {
     selectedBankAccountId,
     handleSelectBankAccount,
     selectedYear,
     handleChangeYear,
+    accounts,
   } = useFiltersModalController();
 
   return (
@@ -40,7 +27,7 @@ export function FiltersModal({ open, onClose }: FiltersModalProps) {
         </span>
 
         <div className="space-y-2 mt-2">
-          {mokedAccounts.map((account) => (
+          {accounts.map((account) => (
             <button
               key={account.id}
               onClick={() => handleSelectBankAccount(account.id)}
@@ -83,7 +70,13 @@ export function FiltersModal({ open, onClose }: FiltersModalProps) {
         </div>
       </div>
 
-      <Button className="w-full mt-10">
+      <Button
+        className="w-full mt-10"
+        onClick={() => onApplyFilters({
+          bankAccountId: selectedBankAccountId,
+          year: selectedYear,
+        })}
+      >
         Aplicar Filtros
       </Button>
     </Modal>
