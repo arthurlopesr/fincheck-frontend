@@ -1,8 +1,8 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { Modal } from "../modal/Modal";
 import { Button } from "../button/Button";
-import { useFiltersModal } from "../../../hooks/useFiltersModal";
 import { cn } from "../../../app/utils/cn";
+import { useFiltersModalController } from "../../../hooks/controllers/useFiltersModalController";
 
 interface FiltersModalProps {
   open: boolean;
@@ -30,7 +30,7 @@ export function FiltersModal({ open, onClose }: FiltersModalProps) {
     handleSelectBankAccount,
     selectedYear,
     handleChangeYear,
-  } = useFiltersModal();
+  } = useFiltersModalController();
 
   return (
     <Modal open={open} onClose={onClose} title="Filtros">
