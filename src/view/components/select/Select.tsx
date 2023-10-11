@@ -16,7 +16,7 @@ interface SelectProps {
 }
 
 export function Select({ className, placeholder, options, value, error, onChange }: SelectProps) {
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState(value ?? '');
 
   function handleSelect(value: string) {
     setSelectedValue(value);
