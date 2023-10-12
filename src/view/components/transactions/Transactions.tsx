@@ -12,6 +12,7 @@ import emptyStateImage from "../../../assets/empty-state.svg";
 import { TransactionTypeDropDown } from "./TransactionTypeDropDown";
 import { FiltersModal } from "./FiltersModal";
 import { formatDate } from "../../../app/utils/formatDate";
+import { EditTransactionModal } from "../dashboardModals/EditTransactionModal";
 
 export function Transactions() {
   const {
@@ -25,6 +26,10 @@ export function Transactions() {
     handleChangeFilters,
     handleApplyFilters,
     filters,
+    handleOpenEditModal,
+    handleCloseEditModal,
+    isEditModalOpen,
+    transactionBeingEdited,
   } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
@@ -98,37 +103,51 @@ export function Transactions() {
               </div>
             )}
 
-            {(hasTransactions && !isLoading) && transactions.map(transation => (
-              <div
-                key={transation.id}
-                className="bg-white p-4 rounded-2xl flex items-center justify-between gap-5"
-              >
-                <div className="flex-1 flex items-center gap-4">
-                  <CategoryIcon
-                    type={transation.type === 'EXPENSE' ? 'expense' : 'income'}
-                    category={transation.category?.icon}
+            {(hasTransactions && !isLoading) && (
+              <>
+                {transactionBeingEdited && (
+                  <EditTransactionModal
+                    open={isEditModalOpen}
+                    onClose={handleCloseEditModal}
+                    transaction={transactionBeingEdited}
                   />
+                )}
 
-                  <div>
-                    <strong className="font-bold tracking-[-0.5px] block">
-                      {transation.name}
-                    </strong>
-                    <span className="text-sm text-gray-600">
-                      {formatDate(new Date(transation.date))}
+                {transactions.map(transation => (
+                  <div
+                    key={transation.id}
+                    className="bg-white p-4 rounded-2xl flex items-center justify-between gap-5"
+                    role="button"
+                    onClick={() => handleOpenEditModal(transation)}
+                  >
+                    <div className="flex-1 flex items-center gap-4">
+                      <CategoryIcon
+                        type={transation.type === 'EXPENSE' ? 'expense' : 'income'}
+                        category={transation.category?.icon}
+                      />
+
+                      <div>
+                        <strong className="font-bold tracking-[-0.5px] block">
+                          {transation.name}
+                        </strong>
+                        <span className="text-sm text-gray-600">
+                          {formatDate(new Date(transation.date))}
+                        </span>
+                      </div>
+                    </div>
+
+                    <span className={cn(
+                      'tracking-[-0.5px] font-medium text-sm',
+                      transation.type === 'EXPENSE' ? 'text-red-500' : 'text-green-500',
+                      !areValuesVisible && 'blur-sm'
+                    )}>
+                      {transation.type === 'EXPENSE' ? '-' : '+'}
+                      {formatCurrency(transation.value)}
                     </span>
                   </div>
-                </div>
-
-                <span className={cn(
-                  'tracking-[-0.5px] font-medium text-sm',
-                  transation.type === 'EXPENSE' ? 'text-red-500' : 'text-green-500',
-                  !areValuesVisible && 'blur-sm'
-                )}>
-                  {transation.type === 'EXPENSE' ? '-' : '+'}
-                  {formatCurrency(transation.value)}
-                </span>
-              </div>
-            ))}
+                ))}
+              </>
+            )}
           </div>
         </>
       )}
