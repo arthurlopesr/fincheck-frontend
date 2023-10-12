@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useBankAccounts } from "../useBankAccunts";
 import { useCategories } from "../useCategories";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Transaction } from "../../app/@types/Transactions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { transactionsService } from "../../app/services/transactionsService";
@@ -48,11 +48,21 @@ export function useEditedTransactionModalController(
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
   const queryClient = useQueryClient();
-  const { isLoading, mutateAsync } = useMutation(transactionsService.update);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const {
+    isLoading,
+    mutateAsync: updateTransaction,
+  } = useMutation(transactionsService.update);
+
+  const {
+    isLoading: isLoadingRemove,
+    mutateAsync: removeTransaction,
+  } = useMutation(transactionsService.remove);
 
   const handleSubmit = hookformSubmit(async data => {
     try {
-      await mutateAsync({
+      await updateTransaction({
         ...data,
         id: transaction!.id,
         type: transaction!.type,
@@ -81,6 +91,32 @@ export function useEditedTransactionModalController(
     return categoriesList.filter(category => category.type === transaction?.type);
   }, [categoriesList, transaction]);
 
+  async function handleDeleteTransaction() {
+    try {
+      await removeTransaction(transaction!.id);
+
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      toast.success(transaction!.type === 'EXPENSE'
+        ? 'Despesa deletada!'
+        : 'Receita deletada'
+      );
+      onClose();
+    } catch {
+      toast.error(
+        transaction!.type === 'EXPENSE'
+          ? 'Erro ao deletar despesa!'
+          : 'Erro ao deletar receita!'
+      );
+    }
+  }
+
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
+  }
 
   return {
     register,
@@ -91,5 +127,11 @@ export function useEditedTransactionModalController(
     refrashPage,
     categories,
     isLoading,
+    isLoadingRemove,
+    isDeleteModalOpen,
+    setIsDeleteModalOpen,
+    handleDeleteTransaction,
+    handleCloseDeleteModal,
+    handleOpenDeleteModal,
   }
 }
